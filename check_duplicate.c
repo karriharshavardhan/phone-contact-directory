@@ -1,26 +1,10 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-struct node{
-    struct node* pre; //connection to previous contact 
-    char* name; //contact name is a string
-    long long int number; //as the phone number may be upto 10 digits
-    struct node* next; //connection to next contact
-}*head=NULL;
-
-int check_duplicate(struct node* p){
+int check_duplicate(struct node* p,struct node* temp){
     if(head==NULL){
         return 1;
     }
     else{
-        while(p){
-            if((strcmp(p->name,temp->name)) && (p->number!=temp->number)){
-                p=p->next;
-            }
-            else{
-                break;
-            }
+        while(p && (strcmp(p->name,temp->name)) && (p->number!=temp->number)){
+            p=p->next;
         }
         if(p==NULL){
             return 1;
@@ -29,10 +13,4 @@ int check_duplicate(struct node* p){
             return 0;
         }
     }
-}
-
-int main()
-{
-    
-    return 0;
 }
