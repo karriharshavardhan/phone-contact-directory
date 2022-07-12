@@ -25,11 +25,11 @@ void save(struct node* p){
             temp->pre=r;
             temp->next=p;
             r->next=temp;
-            if(p!=NULL){
+            if(p!=NULL){ //will face a segmentation error if this if statement is absent
                 p->pre=temp;
             }
         }
-        printf("contact saved successfully!!\n");
+        printf("contact '%s' saved successfully!!\n",temp->name);
     }
     else{
         printf("similar contact information is found in the contact list\n");
