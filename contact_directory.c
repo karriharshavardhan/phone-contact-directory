@@ -10,6 +10,9 @@ struct node{
 }*head=NULL;
 
 void display(struct node* p){
+    if(head==NULL){
+        printf("\n**contact list is empty**\n");
+    }
     while(p){
         printf("%s: %lld\n",p->name,p->number); //displaying name along with phone number
         p=p->next;
@@ -64,23 +67,107 @@ void save(struct node* p){
                 p->pre=temp;
             }
         }
-        printf("contact '%s' saved successfully!!\n",temp->name);
+        printf("\n**contact '%s' saved successfully**\n",temp->name);
     }
     else{
-        printf("similar contact information is found in the contact list\n");
+        printf("\n**similar contact information is found in the contact list**\n");
     }
 }
 
-void edit(){
-    printf("this is edit function\n\n");
+void edit(struct node* p){
+    if(head==NULL){
+        printf("\n**contact list is empty**\n");
+    }
+    else{
+        long long int k;
+        char* name;
+        name=(char*)malloc(100*sizeof(char));
+        printf("enter the name of contact to be edited: ");
+        scanf("%s",name);
+        while(strcmp(p->name,name)!=0){
+            p=p->next;
+        }
+        if(p==NULL){
+            printf("\n**contact '%s' is not found**\n",name);
+        }
+        else{
+            int x;
+            printf("1.edit name\n2.edit number\n");
+            scanf("%d",&x);
+            switch(x){
+                case 1:
+                printf("enter new name: ");
+                scanf("%s",name);
+                p->name=name;
+                printf("\n**contact info edited successfully**\n");
+                break;
+
+                case 2:
+                printf("enter new number: ");
+                scanf("%lld",&k);
+                p->number=k;
+                printf("\n**contact info edited successfully**\n");
+                break;
+
+                default:
+                printf("\n**invalid number**\n");
+                break;
+            }
+        }
+    }
 }
 
-void delete(){
-    printf("this is delete function\n\n");
+void delete(struct node* p){
+    if(head==NULL){
+        printf("\n**contact list is empty**\n");
+    }
+    else{
+        char* name;
+        name=(char*)malloc(100*sizeof(char));
+        printf("enter the name of contact to be deleted: ");
+        scanf("%s",name);
+        while(strcmp(p->name,name)!=0){
+            p=p->next;
+        }
+        if(p==NULL){
+            printf("\n**contact '%s' is not found**\n",name);
+        }
+        else{
+            if(strcmp(head->name,name)==0){
+                head=p->next;
+            }
+            else if(p->next==NULL){
+                p->pre->next=NULL;
+            }
+            else{
+                p->pre->next=p->next;
+                p->next->pre=p->pre;
+            }
+            free(p);
+        }
+        printf("\n**contact '%s' deleted successfully**\n",name);
+    }
 }
 
-int search(){
-    printf("this is search function\n\n");
+int search(struct node* p){
+    if(head==NULL){
+        printf("\n**contact list is empty**\n");
+    }
+    else{
+        char* name;
+        name=(char*)malloc(100*sizeof(char));
+        printf("enter the name of contact to be searched: ");
+        scanf("%s",name);
+        while(strcmp(p->name,name)!=0){
+            p=p->next;
+        }
+        if(p==NULL){
+            printf("\n**contact '%s' is not found**\n",name);
+        }
+        else{
+            printf("\n**contact '%s' is  found**contact number: %lld",name,p->number);
+        }
+    }
 }
 
 int main()
@@ -101,15 +188,15 @@ int main()
         break;        
         
         case 3:
-        edit();
+        edit(head);
         break;
 
         case 4:
-        delete();
+        delete(head);
         break;
 
         case 5:
-        search();
+        search(head);
         break;
 
         default:
