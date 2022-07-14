@@ -1,6 +1,6 @@
 void delete(struct node* p){
     if(head==NULL){
-        printf("contact list is empty!!\n");
+        printf("\n**contact list is empty**\n");
     }
     else{
         char* name;
@@ -11,7 +11,7 @@ void delete(struct node* p){
             p=p->next;
         }
         if(p==NULL){
-            printf("contact '%s' is not found\n",name);
+            printf("\n**contact '%s' is not found**\n",name);
         }
         else{
             if(strcmp(head->name,name)==0){
@@ -26,6 +26,6 @@ void delete(struct node* p){
             }
             free(p);
         }
-        printf("contact '%s' deleted successfully!!\n",name);
+        printf("\n**contact '%s' deleted successfully**\n",name);
     }
 }
