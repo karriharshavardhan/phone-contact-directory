@@ -29,9 +29,9 @@ void save(struct node* p){
                 p->pre=temp;
             }
         }
-        printf("contact '%s' saved successfully!!\n",temp->name);
+        printf("\n**contact '%s' saved successfully**\n",temp->name);
     }
     else{
-        printf("similar contact information is found in the contact list\n");
+        printf("\n**similar contact information is found in the contact list**\n");
     }
 }
