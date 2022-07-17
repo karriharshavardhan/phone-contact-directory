@@ -241,7 +241,7 @@ int main()
         default:
         break;
     }
-    }while(opr!=-1);
+    }while(opr!=-1)
     
   return 0;
 }
