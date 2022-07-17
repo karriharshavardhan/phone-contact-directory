@@ -40,17 +40,7 @@ void display(struct node* p){
 
 void save(struct node* p){
     struct node* temp;
-    temp=(struct node*)malloc(sizeof(struct node));
-    temp->name=(char*)malloc(20*sizeof(char));
-    temp->MailId=(char*)malloc(50*sizeof(char));
-    temp->pre=temp->next=NULL;
-    printf("enter the name of the contact: ");
-    scanf("%s",temp->name);
-    printf("enter the contact number of %s: ",temp->name);
-    scanf("%lld",&temp->number);
-    printf("enter the Mail id of %s: ",temp->name);
-    scanf("%s",temp->MailId);
-    if(check_duplicate(head,temp)){
+   
         if(head==NULL){
             head=temp;
         }
