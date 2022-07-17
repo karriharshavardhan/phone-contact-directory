@@ -1,12 +1,15 @@
 void save(struct node* p){
-    struct node* temp; //to store contact info
+    struct node* temp;
     temp=(struct node*)malloc(sizeof(struct node));
-    temp->name=(char*)malloc(20*sizeof(char)); //assuming string has a max size of 20
+    temp->name=(char*)malloc(20*sizeof(char));
+    temp->MailId=(char*)malloc(50*sizeof(char));
     temp->pre=temp->next=NULL;
     printf("enter the name of the contact: ");
     scanf("%s",temp->name);
     printf("enter the contact number of %s: ",temp->name);
     scanf("%lld",&temp->number);
+    printf("enter the Mail id of %s: ",temp->name);
+    scanf("%s",temp->MailId);
     if(check_duplicate(head,temp)){
         if(head==NULL){
             head=temp;
@@ -25,13 +28,13 @@ void save(struct node* p){
             temp->pre=r;
             temp->next=p;
             r->next=temp;
-            if(p!=NULL){ //will face a segmentation error if this if statement is absent
+            if(p!=NULL){
                 p->pre=temp;
             }
         }
-        printf("\n**contact '%s' saved successfully**\n",temp->name);
+        printf("\n*contact '%s' saved successfully*\n",temp->name);
     }
     else{
-        printf("\n**similar contact information is found in the contact list**\n");
+        printf("\n*similar contact information is found in the contact list*\n");
     }
 }
