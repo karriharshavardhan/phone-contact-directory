@@ -3,28 +3,19 @@
 #include <string.h>
 
 struct node{
-    struct node* pre; //connection to previous contact 
-    char* name; //contact name is a string
-    long long int number; //as the phone number may be upto 10 digits
-    struct node* next; //connection to next contact
+    struct node* pre; 
+    char* name;
+    long long int number;
+    char* MailId;
+    struct node* next;
 }*head=NULL;
-
-void display(struct node* p){
-    if(head==NULL){
-        printf("\n**contact list is empty**\n");
-    }
-    while(p){
-        printf("%s: %lld\n",p->name,p->number); //displaying name along with phone number
-        p=p->next;
-    }
-}
 
 int check_duplicate(struct node* p,struct node* temp){
     if(head==NULL){
         return 1;
     }
     else{
-        while(p && (strcmp(p->name,temp->name)) && (p->number!=temp->number)){
+        while(p && (strcmp(p->name,temp->name)) && (p->number!=temp->number) && (strcmp(p->MailId,temp->MailId))){
             p=p->next;
         }
         if(p==NULL){
@@ -36,15 +27,29 @@ int check_duplicate(struct node* p,struct node* temp){
     }
 }
 
+void display(struct node* p){
+    if(head==NULL){
+        printf("\n*contact list is empty*\n");
+    }
+    printf("\n");
+    while(p){
+        printf("%s: %lld, %s \n",p->name,p->number,p->MailId);
+        p=p->next;
+    }
+}
+
 void save(struct node* p){
-    struct node* temp; //to store contact info
+    struct node* temp;
     temp=(struct node*)malloc(sizeof(struct node));
-    temp->name=(char*)malloc(20*sizeof(char)); //assuming string has a max size of 20
+    temp->name=(char*)malloc(20*sizeof(char));
+    temp->MailId=(char*)malloc(50*sizeof(char));
     temp->pre=temp->next=NULL;
     printf("enter the name of the contact: ");
     scanf("%s",temp->name);
     printf("enter the contact number of %s: ",temp->name);
     scanf("%lld",&temp->number);
+    printf("enter the Mail id of %s: ",temp->name);
+    scanf("%s",temp->MailId);
     if(check_duplicate(head,temp)){
         if(head==NULL){
             head=temp;
@@ -63,54 +68,63 @@ void save(struct node* p){
             temp->pre=r;
             temp->next=p;
             r->next=temp;
-            if(p!=NULL){ //will face a segmentation error if this if statement is absent
+            if(p!=NULL){
                 p->pre=temp;
             }
         }
-        printf("\n**contact '%s' saved successfully**\n",temp->name);
+        printf("\n*contact '%s' saved successfully*\n",temp->name);
     }
     else{
-        printf("\n**similar contact information is found in the contact list**\n");
+        printf("\n*similar contact information is found in the contact list*\n");
     }
 }
 
 void edit(struct node* p){
     if(head==NULL){
-        printf("\n**contact list is empty**\n");
+        printf("\n*contact list is empty*\n");
     }
     else{
         long long int k;
         char* name;
-        name=(char*)malloc(100*sizeof(char));
+        name=(char*)malloc(20*sizeof(char));
         printf("enter the name of contact to be edited: ");
         scanf("%s",name);
         while(strcmp(p->name,name)!=0){
             p=p->next;
         }
+        char* MailId;
+        MailId=(char*)malloc(50*sizeof(char));
         if(p==NULL){
-            printf("\n**contact '%s' is not found**\n",name);
+            printf("\n*contact '%s' is not found*\n",name);
         }
         else{
             int x;
-            printf("1.edit name\n2.edit number\n");
+            printf("1.edit name\n2.edit number\n3.edit MailId\n");
             scanf("%d",&x);
             switch(x){
                 case 1:
                 printf("enter new name: ");
                 scanf("%s",name);
                 p->name=name;
-                printf("\n**contact info edited successfully**\n");
+                printf("\n*contact info edited successfully*\n");
                 break;
 
                 case 2:
                 printf("enter new number: ");
                 scanf("%lld",&k);
                 p->number=k;
-                printf("\n**contact info edited successfully**\n");
+                printf("\n*contact info edited successfully*\n");
                 break;
-
+                
+                case 3:
+                printf("enter new MailId: ");
+                scanf("%s",MailId);
+                p->MailId=MailId;
+                printf("\n*contact info edited successfully*\n");
+                break;
+                
                 default:
-                printf("\n**invalid number**\n");
+                printf("\n*invalid number*\n");
                 break;
             }
         }
@@ -119,18 +133,18 @@ void edit(struct node* p){
 
 void delete(struct node* p){
     if(head==NULL){
-        printf("\n**contact list is empty**\n");
+        printf("\n*contact list is empty*\n");
     }
     else{
         char* name;
-        name=(char*)malloc(100*sizeof(char));
+        name=(char*)malloc(20*sizeof(char));
         printf("enter the name of contact to be deleted: ");
         scanf("%s",name);
         while(strcmp(p->name,name)!=0){
             p=p->next;
         }
         if(p==NULL){
-            printf("\n**contact '%s' is not found**\n",name);
+            printf("\n*contact '%s' is not found*\n",name);
         }
         else{
             if(strcmp(head->name,name)==0){
@@ -145,27 +159,52 @@ void delete(struct node* p){
             }
             free(p);
         }
-        printf("\n**contact '%s' deleted successfully**\n",name);
+        printf("\n*contact '%s' deleted successfully*\n",name);
     }
 }
 
 int search(struct node* p){
     if(head==NULL){
-        printf("\n**contact list is empty**\n");
+        printf("\n*contact list is empty*\n");
     }
     else{
         char* name;
-        name=(char*)malloc(100*sizeof(char));
+        name=(char*)malloc(20*sizeof(char));
         printf("enter the name of contact to be searched: ");
         scanf("%s",name);
         while(strcmp(p->name,name)!=0){
             p=p->next;
         }
         if(p==NULL){
-            printf("\n**contact '%s' is not found**\n",name);
+            printf("\n*contact '%s' is not found*\n",name);
         }
         else{
-            printf("\n**contact '%s' is  found**contact number: %lld",name,p->number);
+            printf("\n*contact '%s' is  found* contact info: %lld, %s",name,p->number,p->MailId);
+            int temp;
+            printf("\n1.go to previous contact\n2.go to next contact\n");
+            scanf("%d",&temp);
+            switch(temp){
+                case 1:
+                if(p->pre!=NULL){
+                    printf("%s: %lld %s\n",p->pre->name,p->pre->number,p->pre->MailId);
+                }
+                else{
+                    printf("%s is the starting contact of the list\n",p->name);
+                }
+                break;
+
+                case 2:
+                if(p->next!=NULL){
+                    printf("%s: %lld %s\n",p->next->name,p->next->number,p->next->MailId);
+                }
+                else{
+                    printf("%s is the ending contact of the list\n",p->name);
+                }
+                break;
+
+                default:
+                break;
+            }
         }
     }
 }
@@ -204,5 +243,5 @@ int main()
     }
     }while(opr!=-1);
     
-    return 0;
+  return 0;
 }
