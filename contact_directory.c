@@ -158,8 +158,8 @@ void delete(struct node* p){
                 p->next->pre=p->pre;
             }
             free(p); //removing the memory
+            printf("\n*contact '%s' deleted successfully*\n",name);
         }
-        printf("\n*contact '%s' deleted successfully*\n",name);
     }
 }
 
