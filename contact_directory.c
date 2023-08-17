@@ -51,10 +51,10 @@ void save(struct node* p){
     printf("enter the Mail id of %s: ",temp->name);
     scanf("%s",temp->MailId);
     if(check_duplicate(head,temp)){
-        if(head==NULL){
+        if(head==NULL){ //when the contact list is empty and we are saving the first contact
             head=temp;
         }
-        else if(strcmp(head->name,temp->name)>0){
+        else if(strcmp(head->name,temp->name)>0){ //when the lexicographical order the newly inserting contact name is less than the name of the contact in the head
             head->pre=temp;
             temp->next=head;
             head=temp;
