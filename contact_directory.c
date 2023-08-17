@@ -140,7 +140,7 @@ void delete(struct node* p){
         name=(char*)malloc(20*sizeof(char));
         printf("enter the name of contact to be deleted: ");
         scanf("%s",name);
-        while(strcmp(p->name,name)!=0){
+        while(p!=NULL && strcmp(p->name,name)!=0){
             p=p->next;
         }
         if(p==NULL){
@@ -157,7 +157,7 @@ void delete(struct node* p){
                 p->pre->next=p->next;
                 p->next->pre=p->pre;
             }
-            free(p);
+            free(p); //removing the memory
         }
         printf("\n*contact '%s' deleted successfully*\n",name);
     }
