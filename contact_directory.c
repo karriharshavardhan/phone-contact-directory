@@ -172,7 +172,7 @@ int search(struct node* p){
         name=(char*)malloc(20*sizeof(char));
         printf("enter the name of contact to be searched: ");
         scanf("%s",name);
-        while(strcmp(p->name,name)!=0){
+        while(p!=NULL && strcmp(p->name,name)!=0){
             p=p->next;
         }
         if(p==NULL){
@@ -203,6 +203,7 @@ int search(struct node* p){
                 break;
 
                 default:
+                printf("\n*invalid number*\n");
                 break;
             }
         }
