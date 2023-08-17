@@ -214,34 +214,34 @@ int main()
 {
     int opr;
     do{
-    printf("\n1.Display all the contacts\n2.Save a new contact\n3.Edit an existing contact\n4.Delete a contact\n5.Search for a contact\n");
-    printf("enter -1 to exit\n");
-    printf("enter the operation you want to perform:");
-    scanf("%d",&opr);
+        printf("\n1.Display all the contacts\n2.Save a new contact\n3.Edit an existing contact\n4.Delete a contact\n5.Search for a contact\n");
+        printf("enter -1 to exit\n");
+        printf("enter the operation you want to perform:");
+        scanf("%d",&opr);
         switch(opr){
-        case 1:
-        display(head);
-        break;
+            case 1:
+                display(head);
+                break;
 
-        case 2:
-        save(head);
-        break;        
-        
-        case 3:
-        edit(head);
-        break;
+            case 2:
+                save(head);
+                break;        
+            
+            case 3:
+                edit(head);
+                break;
 
-        case 4:
-        delete(head);
-        break;
+            case 4:
+                delete(head);
+                break;
 
-        case 5:
-        search(head);
-        break;
+            case 5:
+                search(head);
+                break;
 
-        default:
-        break;
-    }
+            default:
+                break; 
+        }
     }while(opr!=-1);
 
   return 0;
