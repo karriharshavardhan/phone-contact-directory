@@ -11,21 +11,22 @@ struct node{
 }*head=NULL;
 
 int check_duplicate(struct node* p,struct node* temp){
-    if(head==NULL){
-        return 1;
+    if(head==NULL){ //exucutes intially when there are no contacts
+        return 1; //no duplicate found
     }
     else{
-        while(p && (strcmp(p->name,temp->name)) && (p->number!=temp->number) && (strcmp(p->MailId,temp->MailId))){
+        while(p && (strcmp(p->name,temp->name)) && (p->number!=temp->number) && (strcmp(p->MailId,temp->MailId))){ //strcmp returns 0 if the strings are equal
             p=p->next;
         }
-        if(p==NULL){
+        if(p==NULL){ //reached the end of contact of contact list and no duplicate is found
             return 1;
         }
         else{
-            return 0;
+            return 0; //duplicate foud
         }
     }
 }
+
 void display(struct node* p){
     if(head==NULL){
         printf("\n*contact list is empty*\n");
