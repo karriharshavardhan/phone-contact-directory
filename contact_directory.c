@@ -11,7 +11,7 @@ struct node{
 }*head=NULL;
 
 int check_duplicate(struct node* p,struct node* temp){
-    if(head==NULL){ //exucutes intially when there are no contacts
+    if(head==NULL){ //executes intially when there are no contacts
         return 1; //no duplicate found
     }
     else{
@@ -103,29 +103,29 @@ void edit(struct node* p){
             scanf("%d",&x);
             switch(x){
                 case 1:
-                printf("enter new name: ");
-                scanf("%s",name);
-                p->name=name;
-                printf("\n*contact info edited successfully*\n");
-                break;
+                    printf("enter new name: ");
+                    scanf("%s",name);
+                    p->name=name;
+                    printf("\n*contact info edited successfully*\n");
+                    break;
 
                 case 2:
-                printf("enter new number: ");
-                scanf("%lld",&k);
-                p->number=k;
-                printf("\n*contact info edited successfully*\n");
-                break;
+                    printf("enter new number: ");
+                    scanf("%lld",&k);
+                    p->number=k;
+                    printf("\n*contact info edited successfully*\n");
+                    break;
                 
                 case 3:
-                printf("enter new MailId: ");
-                scanf("%s",MailId);
-                p->MailId=MailId;
-                printf("\n*contact info edited successfully*\n");
-                break;
+                    printf("enter new MailId: ");
+                    scanf("%s",MailId);
+                    p->MailId=MailId;
+                    printf("\n*contact info edited successfully*\n");
+                    break;
                 
                 default:
-                printf("\n*invalid number*\n");
-                break;
+                    printf("\n*invalid number*\n");
+                    break;
             }
         }
     }
@@ -181,31 +181,35 @@ int search(struct node* p){
         else{
             printf("\n*contact '%s' is  found* contact info: %lld, %s",name,p->number,p->MailId);
             int temp;
-            printf("\n1.go to previous contact\n2.go to next contact\n");
-            scanf("%d",&temp);
-            switch(temp){
-                case 1:
-                if(p->pre!=NULL){
-                    printf("%s: %lld %s\n",p->pre->name,p->pre->number,p->pre->MailId);
-                }
-                else{
-                    printf("%s is the starting contact of the list\n",p->name);
-                }
-                break;
+            do{
+                printf("\n1.go to previous contact\n2.go to next contact\n");
+                printf("enter -1 to exit\n");
+                scanf("%d",&temp);
+                switch(temp){
+                    case 1:
+                        if(p->pre!=NULL){
+                            p=p->pre;
+                            printf("Previous contact of %s \n%s: %lld %s\n",p->next->name,p->name,p->number,p->MailId);
+                        }
+                        else{
+                            printf("%s is the starting contact of the list\n",p->name);
+                        }
+                        break;
 
-                case 2:
-                if(p->next!=NULL){
-                    printf("%s: %lld %s\n",p->next->name,p->next->number,p->next->MailId);
-                }
-                else{
-                    printf("%s is the ending contact of the list\n",p->name);
-                }
-                break;
+                    case 2:
+                        if(p->next!=NULL){
+                            p=p->next;
+                            printf("Next contact of %s \n%s: %lld %s\n",p->pre->name,p->name,p->number,p->MailId);
+                        }
+                        else{
+                            printf("%s is the ending contact of the list\n",p->name);
+                        }
+                        break;
 
-                default:
-                printf("\n*invalid number*\n");
-                break;
-            }
+                    default:
+                        break;
+                }
+            }while(temp!=-1); 
         }
     }
 }
