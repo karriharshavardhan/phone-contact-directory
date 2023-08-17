@@ -74,7 +74,7 @@ void save(struct node* p){
         printf("\n*contact '%s' saved successfully*\n",temp->name);
     }
     else{
-        printf("\n*similar contact information is found in the contact list*\n");
+        printf("\n*could not save the contact '%s' as it already is already present*\n",temp->name);
     }
 }
 
