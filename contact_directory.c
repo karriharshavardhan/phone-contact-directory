@@ -185,26 +185,26 @@ int search(struct node* p){
             scanf("%d",&temp);
             switch(temp){
                 case 1:
-                if(p->pre!=NULL){
-                    printf("%s: %lld %s\n",p->pre->name,p->pre->number,p->pre->MailId);
-                }
-                else{
-                    printf("%s is the starting contact of the list\n",p->name);
-                }
-                break;
+                    if(p->pre!=NULL){
+                        printf("%s: %lld %s\n",p->pre->name,p->pre->number,p->pre->MailId);
+                    }
+                    else{
+                        printf("%s is the starting contact of the list\n",p->name);
+                    }
+                    break;
 
                 case 2:
-                if(p->next!=NULL){
-                    printf("%s: %lld %s\n",p->next->name,p->next->number,p->next->MailId);
-                }
-                else{
-                    printf("%s is the ending contact of the list\n",p->name);
-                }
-                break;
+                    if(p->next!=NULL){
+                        printf("%s: %lld %s\n",p->next->name,p->next->number,p->next->MailId);
+                    }
+                    else{
+                        printf("%s is the ending contact of the list\n",p->name);
+                    }
+                    break;
 
                 default:
-                printf("\n*invalid number*\n");
-                break;
+                    printf("\n*invalid number*\n");
+                    break;
             }
         }
     }
