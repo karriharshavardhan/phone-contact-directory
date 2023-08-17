@@ -11,21 +11,22 @@ struct node{
 }*head=NULL;
 
 int check_duplicate(struct node* p,struct node* temp){
-    if(head==NULL){
-        return 1;
+    if(head==NULL){ //executes intially when there are no contacts
+        return 1; //no duplicate found
     }
     else{
-        while(p && (strcmp(p->name,temp->name)) && (p->number!=temp->number) && (strcmp(p->MailId,temp->MailId))){
+        while(p && (strcmp(p->name,temp->name)) && (p->number!=temp->number) && (strcmp(p->MailId,temp->MailId))){ //strcmp returns 0 if the strings are equal
             p=p->next;
         }
-        if(p==NULL){
+        if(p==NULL){ //reached the end of contact of contact list and no duplicate is found
             return 1;
         }
         else{
-            return 0;
+            return 0; //duplicate foud
         }
     }
 }
+
 void display(struct node* p){
     if(head==NULL){
         printf("\n*contact list is empty*\n");
@@ -39,21 +40,21 @@ void display(struct node* p){
 
 void save(struct node* p){
     struct node* temp;
-     temp=(struct node*)malloc(sizeof(struct node));
+    temp=(struct node*)malloc(sizeof(struct node));
     temp->name=(char*)malloc(20*sizeof(char));
     temp->MailId=(char*)malloc(50*sizeof(char));
     temp->pre=temp->next=NULL;
-    printf("enter the name of the contact: ");
+    printf("enter the name of the contact (white spaces not allowed): ");
     scanf("%s",temp->name);
     printf("enter the contact number of %s: ",temp->name);
     scanf("%lld",&temp->number);
     printf("enter the Mail id of %s: ",temp->name);
     scanf("%s",temp->MailId);
     if(check_duplicate(head,temp)){
-        if(head==NULL){
+        if(head==NULL){ //when the contact list is empty and we are saving the first contact
             head=temp;
         }
-        else if(strcmp(head->name,temp->name)>0){
+        else if(strcmp(head->name,temp->name)>0){ //when the lexicographical order the newly inserting contact name is less than the name of the contact in the head
             head->pre=temp;
             temp->next=head;
             head=temp;
@@ -74,7 +75,7 @@ void save(struct node* p){
         printf("\n*contact '%s' saved successfully*\n",temp->name);
     }
     else{
-        printf("\n*similar contact information is found in the contact list*\n");
+        printf("\n*could not save the contact '%s' as similar contact info is already present*\n",temp->name);
     }
 }
 
@@ -86,13 +87,13 @@ void edit(struct node* p){
         long long int k;
         char* name;
         name=(char*)malloc(20*sizeof(char));
-        printf("enter the name of contact to be edited: ");
-        scanf("%s",name);
-        while(strcmp(p->name,name)!=0){
-            p=p->next;
-        }
         char* MailId;
         MailId=(char*)malloc(50*sizeof(char));
+        printf("enter the name of contact to be edited: ");
+        scanf("%s",name);
+        while(p!=NULL && strcmp(p->name,name)!=0){
+            p=p->next;
+        }
         if(p==NULL){
             printf("\n*contact '%s' is not found*\n",name);
         }
@@ -102,29 +103,29 @@ void edit(struct node* p){
             scanf("%d",&x);
             switch(x){
                 case 1:
-                printf("enter new name: ");
-                scanf("%s",name);
-                p->name=name;
-                printf("\n*contact info edited successfully*\n");
-                break;
+                    printf("enter new name: ");
+                    scanf("%s",name);
+                    p->name=name;
+                    printf("\n*contact info edited successfully*\n");
+                    break;
 
                 case 2:
-                printf("enter new number: ");
-                scanf("%lld",&k);
-                p->number=k;
-                printf("\n*contact info edited successfully*\n");
-                break;
+                    printf("enter new number: ");
+                    scanf("%lld",&k);
+                    p->number=k;
+                    printf("\n*contact info edited successfully*\n");
+                    break;
                 
                 case 3:
-                printf("enter new MailId: ");
-                scanf("%s",MailId);
-                p->MailId=MailId;
-                printf("\n*contact info edited successfully*\n");
-                break;
+                    printf("enter new MailId: ");
+                    scanf("%s",MailId);
+                    p->MailId=MailId;
+                    printf("\n*contact info edited successfully*\n");
+                    break;
                 
                 default:
-                printf("\n*invalid number*\n");
-                break;
+                    printf("\n*invalid number*\n");
+                    break;
             }
         }
     }
@@ -139,7 +140,7 @@ void delete(struct node* p){
         name=(char*)malloc(20*sizeof(char));
         printf("enter the name of contact to be deleted: ");
         scanf("%s",name);
-        while(strcmp(p->name,name)!=0){
+        while(p!=NULL && strcmp(p->name,name)!=0){
             p=p->next;
         }
         if(p==NULL){
@@ -156,9 +157,9 @@ void delete(struct node* p){
                 p->pre->next=p->next;
                 p->next->pre=p->pre;
             }
-            free(p);
+            free(p); //removing the memory
+            printf("\n*contact '%s' deleted successfully*\n",name);
         }
-        printf("\n*contact '%s' deleted successfully*\n",name);
     }
 }
 
@@ -171,7 +172,7 @@ int search(struct node* p){
         name=(char*)malloc(20*sizeof(char));
         printf("enter the name of contact to be searched: ");
         scanf("%s",name);
-        while(strcmp(p->name,name)!=0){
+        while(p!=NULL && strcmp(p->name,name)!=0){
             p=p->next;
         }
         if(p==NULL){
@@ -180,30 +181,35 @@ int search(struct node* p){
         else{
             printf("\n*contact '%s' is  found* contact info: %lld, %s",name,p->number,p->MailId);
             int temp;
-            printf("\n1.go to previous contact\n2.go to next contact\n");
-            scanf("%d",&temp);
-            switch(temp){
-                case 1:
-                if(p->pre!=NULL){
-                    printf("%s: %lld %s\n",p->pre->name,p->pre->number,p->pre->MailId);
-                }
-                else{
-                    printf("%s is the starting contact of the list\n",p->name);
-                }
-                break;
+            do{
+                printf("\n1.go to previous contact\n2.go to next contact\n");
+                printf("enter -1 to exit\n");
+                scanf("%d",&temp);
+                switch(temp){
+                    case 1:
+                        if(p->pre!=NULL){
+                            p=p->pre;
+                            printf("Previous contact of %s \n%s: %lld %s\n",p->next->name,p->name,p->number,p->MailId);
+                        }
+                        else{
+                            printf("%s is the starting contact of the list\n",p->name);
+                        }
+                        break;
 
-                case 2:
-                if(p->next!=NULL){
-                    printf("%s: %lld %s\n",p->next->name,p->next->number,p->next->MailId);
-                }
-                else{
-                    printf("%s is the ending contact of the list\n",p->name);
-                }
-                break;
+                    case 2:
+                        if(p->next!=NULL){
+                            p=p->next;
+                            printf("Next contact of %s \n%s: %lld %s\n",p->pre->name,p->name,p->number,p->MailId);
+                        }
+                        else{
+                            printf("%s is the ending contact of the list\n",p->name);
+                        }
+                        break;
 
-                default:
-                break;
-            }
+                    default:
+                        break;
+                }
+            }while(temp!=-1); 
         }
     }
 }
@@ -212,35 +218,35 @@ int main()
 {
     int opr;
     do{
-    printf("\n1.Display all the contacts\n2.Save a new contact\n3.Edit an existing contact\n4.Delete a contact\n5.Search for a contact\n");
-    printf("enter -1 to exit\n");
-    printf("enter the operation you want to perform:");
-    scanf("%d",&opr);
+        printf("\n1.Display all the contacts\n2.Save a new contact\n3.Edit an existing contact\n4.Delete a contact\n5.Search for a contact\n");
+        printf("enter -1 to exit\n");
+        printf("enter the operation you want to perform:");
+        scanf("%d",&opr);
         switch(opr){
-        case 1:
-        display(head);
-        break;
+            case 1:
+                display(head);
+                break;
 
-        case 2:
-        save(head);
-        break;        
-        
-        case 3:
-        edit(head);
-        break;
+            case 2:
+                save(head);
+                break;        
+            
+            case 3:
+                edit(head);
+                break;
 
-        case 4:
-        delete(head);
-        break;
+            case 4:
+                delete(head);
+                break;
 
-        case 5:
-        search(head);
-        break;
+            case 5:
+                search(head);
+                break;
 
-        default:
-        break;
-    }
+            default:
+                break; 
+        }
     }while(opr!=-1);
-    
+
   return 0;
 }
