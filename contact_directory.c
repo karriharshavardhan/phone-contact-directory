@@ -103,29 +103,29 @@ void edit(struct node* p){
             scanf("%d",&x);
             switch(x){
                 case 1:
-                printf("enter new name: ");
-                scanf("%s",name);
-                p->name=name;
-                printf("\n*contact info edited successfully*\n");
-                break;
+                    printf("enter new name: ");
+                    scanf("%s",name);
+                    p->name=name;
+                    printf("\n*contact info edited successfully*\n");
+                    break;
 
                 case 2:
-                printf("enter new number: ");
-                scanf("%lld",&k);
-                p->number=k;
-                printf("\n*contact info edited successfully*\n");
-                break;
+                    printf("enter new number: ");
+                    scanf("%lld",&k);
+                    p->number=k;
+                    printf("\n*contact info edited successfully*\n");
+                    break;
                 
                 case 3:
-                printf("enter new MailId: ");
-                scanf("%s",MailId);
-                p->MailId=MailId;
-                printf("\n*contact info edited successfully*\n");
-                break;
+                    printf("enter new MailId: ");
+                    scanf("%s",MailId);
+                    p->MailId=MailId;
+                    printf("\n*contact info edited successfully*\n");
+                    break;
                 
                 default:
-                printf("\n*invalid number*\n");
-                break;
+                    printf("\n*invalid number*\n");
+                    break;
             }
         }
     }
