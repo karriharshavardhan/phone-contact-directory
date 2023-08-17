@@ -11,7 +11,7 @@ struct node{
 }*head=NULL;
 
 int check_duplicate(struct node* p,struct node* temp){
-    if(head==NULL){ //exucutes intially when there are no contacts
+    if(head==NULL){ //executes intially when there are no contacts
         return 1; //no duplicate found
     }
     else{
