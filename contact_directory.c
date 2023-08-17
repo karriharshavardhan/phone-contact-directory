@@ -44,7 +44,7 @@ void save(struct node* p){
     temp->name=(char*)malloc(20*sizeof(char));
     temp->MailId=(char*)malloc(50*sizeof(char));
     temp->pre=temp->next=NULL;
-    printf("enter the name of the contact: ");
+    printf("enter the name of the contact (white spaces not allowed): ");
     scanf("%s",temp->name);
     printf("enter the contact number of %s: ",temp->name);
     scanf("%lld",&temp->number);
