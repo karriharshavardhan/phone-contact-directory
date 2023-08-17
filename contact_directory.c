@@ -87,13 +87,13 @@ void edit(struct node* p){
         long long int k;
         char* name;
         name=(char*)malloc(20*sizeof(char));
-        printf("enter the name of contact to be edited: ");
-        scanf("%s",name);
-        while(strcmp(p->name,name)!=0){
-            p=p->next;
-        }
         char* MailId;
         MailId=(char*)malloc(50*sizeof(char));
+        printf("enter the name of contact to be edited: ");
+        scanf("%s",name);
+        while(p!=NULL && strcmp(p->name,name)!=0){
+            p=p->next;
+        }
         if(p==NULL){
             printf("\n*contact '%s' is not found*\n",name);
         }
