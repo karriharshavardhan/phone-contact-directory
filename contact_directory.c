@@ -188,7 +188,8 @@ int search(struct node* p){
                 switch(temp){
                     case 1:
                         if(p->pre!=NULL){
-                            printf("%s: %lld %s\n",p->pre->name,p->pre->number,p->pre->MailId);
+                            p=p->pre;
+                            printf("%s: %lld %s\n",p->name,p->number,p->MailId);
                         }
                         else{
                             printf("%s is the starting contact of the list\n",p->name);
@@ -197,7 +198,8 @@ int search(struct node* p){
 
                     case 2:
                         if(p->next!=NULL){
-                            printf("%s: %lld %s\n",p->next->name,p->next->number,p->next->MailId);
+                            p=p->next;
+                            printf("%s: %lld %s\n",p->name,p->number,p->MailId);
                         }
                         else{
                             printf("%s is the ending contact of the list\n",p->name);
