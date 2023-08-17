@@ -181,31 +181,33 @@ int search(struct node* p){
         else{
             printf("\n*contact '%s' is  found* contact info: %lld, %s",name,p->number,p->MailId);
             int temp;
-            printf("\n1.go to previous contact\n2.go to next contact\n");
-            scanf("%d",&temp);
-            switch(temp){
-                case 1:
-                    if(p->pre!=NULL){
-                        printf("%s: %lld %s\n",p->pre->name,p->pre->number,p->pre->MailId);
-                    }
-                    else{
-                        printf("%s is the starting contact of the list\n",p->name);
-                    }
-                    break;
+            do{
+                printf("\n1.go to previous contact\n2.go to next contact\n");
+                printf("enter -1 to exit\n");
+                scanf("%d",&temp);
+                switch(temp){
+                    case 1:
+                        if(p->pre!=NULL){
+                            printf("%s: %lld %s\n",p->pre->name,p->pre->number,p->pre->MailId);
+                        }
+                        else{
+                            printf("%s is the starting contact of the list\n",p->name);
+                        }
+                        break;
 
-                case 2:
-                    if(p->next!=NULL){
-                        printf("%s: %lld %s\n",p->next->name,p->next->number,p->next->MailId);
-                    }
-                    else{
-                        printf("%s is the ending contact of the list\n",p->name);
-                    }
-                    break;
+                    case 2:
+                        if(p->next!=NULL){
+                            printf("%s: %lld %s\n",p->next->name,p->next->number,p->next->MailId);
+                        }
+                        else{
+                            printf("%s is the ending contact of the list\n",p->name);
+                        }
+                        break;
 
-                default:
-                    printf("\n*invalid number*\n");
-                    break;
-            }
+                    default:
+                        break;
+                }
+            }while(temp!=-1); 
         }
     }
 }
